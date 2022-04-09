@@ -1,0 +1,19 @@
+{
+    "name": "The Muslim's Dashboard",
+    "description": "The perfect new tab page for Muslims.",
+    "version": "0.0.1",
+    "manifest_version": 3,
+    "action": {
+        "default_title": "The Muslim's Dashboard",
+        "default_popup": "index.html"
+    },
+    "icons": {
+        "16": "logo192.png",
+        "48": "logo192.png",
+        "128": "logo192.png"
+    },
+    "chrome_url_overrides": {
+        "newtab": "index.html"
+    },
+    "optional_permissions": ["geolocation"]
+}

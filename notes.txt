@@ -1,0 +1,35 @@
+====PRAYER TIMES COMPONENT====
+useEffect fetch to api only IF localStorage does NOT have location data set.
+
+Refresh button onClick gets location data from via geolocation API, put that into prayertimes API call and display on table.
+
+have current location (from localstorate/api) written underneath prayertimes table with refresh icon to the right.
+should update weather as well (so have state and onClick to get location in context)
+
+have loading + success/error notificatons come up in middle center when calling api/refreshing
+
+You can store the date of when the last API call was made, for example, lastAPIFetchDate, then each time the app opens you compare lastAPIFetchDate with today's date and if the lastAPIFetchDate is before today's date, make the API call, if not, get the data from the storage.
+
+IF lat/lon = London (determined using openweather geocoder api)
+use unified london prayer api
+lse if (UK)
+use adhan prayer time -> moonsighting committee
+else
+use adhan prayer time package other calculations?
+
+
+====WEATHER COMPONENT=====
+useEffect fetch to api only IF localStorage does NOT have location data set.
+
+Refresh button onClick gets location data from via geolocation API, put that into weather API call and display data.
+
+have current location (from localstorate/api) written underneath weather table with refresh icon to the right.
+
+have loading + success/error notificatons come up in middle center when calling api/refreshing
+
+You can store the date of when the last API call was made, for example, lastAPIFetchDate, then each time the app opens you compare lastAPIFetchDate with today's date and if the lastAPIFetchDate is before today's date, make the API call, if not, get the data from the storage.
+
+=====QURAN QUOTES COMPONENT=====
+
+
+=====TODO LIST COMPONENT=====
