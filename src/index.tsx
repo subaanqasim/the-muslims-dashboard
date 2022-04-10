@@ -1,10 +1,13 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import App from "./App"
+import { LocationContextProvider } from "./LocationContext"
 
 ReactDOM.render(
     <React.StrictMode>
-        <App />
+        <LocationContextProvider>
+            <App />
+        </LocationContextProvider>
     </React.StrictMode>,
     document.getElementById("root")
 )

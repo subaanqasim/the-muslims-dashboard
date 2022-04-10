@@ -1,8 +1,17 @@
+import React, { useContext } from "react"
 import { Text } from "@mantine/core"
-import React from "react"
+import { LocationContext } from "../LocationContext"
 
 function PrayerTimes() {
-    return <Text>PrayerTimes</Text>
+    const { location, refreshLocation } = useContext(LocationContext)
+
+    console.log(location)
+    return (
+        <>
+            <Text>PrayerTimes</Text>
+            <button onClick={() => refreshLocation()}>refresh</button>
+        </>
+    )
 }
 
 export default PrayerTimes
