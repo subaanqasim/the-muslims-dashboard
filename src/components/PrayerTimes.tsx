@@ -124,7 +124,8 @@ function PrayerTimes() {
                 captionSide="bottom"
                 verticalSpacing="sm"
                 style={{
-                    maxWidth: "16em",
+                    minWidth: "20em",
+                    maxWidth: "24em",
                 }}
             >
                 <tbody>{rows}</tbody>

@@ -7,13 +7,9 @@
         "default_title": "The Muslim's Dashboard",
         "default_popup": "index.html"
     },
-    "icons": {
-        "16": "logo192.png",
-        "48": "logo192.png",
-        "128": "logo192.png"
-    },
+    "icons": {},
     "chrome_url_overrides": {
         "newtab": "index.html"
     },
-    "optional_permissions": ["geolocation"]
+    "permissions": ["geolocation"]
 }

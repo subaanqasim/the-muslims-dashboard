@@ -8,7 +8,7 @@ function ToggleThemeButton() {
 
     return (
         <ActionIcon
-            variant="outline"
+            variant="hover"
             color={dark ? "yellow" : "blue"}
             onClick={() => toggleColorScheme()}
             title="Toggle color scheme"

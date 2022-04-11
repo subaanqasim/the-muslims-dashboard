@@ -25,7 +25,7 @@ yarn-error.log*
 
 # NOTES
 .txt
+*.txt
 
 #vscode settings
 /.vscode
-*.txt
