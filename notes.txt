@@ -1,9 +1,6 @@
 ====PRAYER TIMES COMPONENT====
 
-have current location (from localstorate/api) written underneath prayertimes table with refresh icon to the right.
-should update weather as well (so have state and onClick to get location in context)
-
-have loading + success/error notificatons come up in middle center when calling location api/refreshing
+have current location (from local storage/api) written underneath prayertimes table with refresh icon to the right.
 
 
 

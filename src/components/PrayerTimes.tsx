@@ -14,6 +14,21 @@ function PrayerTimes() {
     const params = adhan.CalculationMethod.MoonsightingCommittee()
     const prayerTimes = new adhan.PrayerTimes(coords, date, params)
     const sunnahTimes = new adhan.SunnahTimes(prayerTimes)
+
+    useEffect(() => {
+        const times = todayPrayerTimes.map((prayer) => ({
+            prayer: prayer.prayer,
+            time: prayer.time,
+        }))
+
+        for (let i = 0; i < times.length; i++) {
+            if (new Date() < times[i].time) {
+                setCurrentPrayer(times[i - 1].prayer)
+                break
+            }
+        }
+    }, [])
+
     const todayPrayerTimes = [
         {
             prayer: "Fajr",
@@ -90,25 +105,6 @@ function PrayerTimes() {
         </tr>
     ))
 
-    useEffect(() => {
-        const times = todayPrayerTimes.map((prayer) => ({
-            prayer: prayer.prayer,
-            time: prayer.time,
-        }))
-
-        for (let i = 0; i < times.length; i++) {
-            if (new Date() < times[i].time) {
-                setCurrentPrayer(times[i - 1].prayer)
-                break
-            }
-        }
-    }, [])
-
-    // function currentPrayer() {
-
-    // }
-    // currentPrayer()
-
     return (
         <>
             <Title style={{ display: "block" }} order={3}>
@@ -137,7 +133,7 @@ function PrayerTimes() {
                         fontSize: "0.75rem",
                     }}
                 >
-                    Location: London
+                    Location: {location.city}, {location.state}
                     <ActionIcon
                         color="gray" // TODO: adjust colour to match location text
                         variant="hover"

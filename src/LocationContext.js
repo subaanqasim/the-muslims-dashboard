@@ -10,14 +10,23 @@ function LocationContextProvider(props) {
         defaultValue: {
             latitude: 51.5072,
             longitude: 0.1276,
+            city: "London",
+            state: "England",
         },
     })
 
     function refreshLocation() {
-        const success = (position) => {
+        const success = async (position) => {
+            const { latitude, longitude } = position.coords
+            const res = await fetch(
+                `https://api.openweathermap.org/geo/1.0/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&limit=3&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
+            )
+            const data = await res.json()
             setLocation({
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude,
+                latitude: latitude,
+                longitude: longitude,
+                city: data[0].name,
+                state: data[0].state,
             })
         }
         const error = () => {
