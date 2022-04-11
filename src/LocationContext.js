@@ -1,5 +1,7 @@
 import React, { createContext } from "react"
 import { useLocalStorage } from "@mantine/hooks"
+import { showNotification } from "@mantine/notifications"
+import { MapPinOff } from "tabler-icons-react"
 const LocationContext = createContext()
 
 function LocationContextProvider(props) {
@@ -18,10 +20,16 @@ function LocationContextProvider(props) {
                 longitude: position.coords.longitude,
             })
         }
-        const error = () =>
-            alert(
-                "Unable to find location :( - Make sure you grant location permissions!"
-            )
+        const error = () => {
+            showNotification({
+                autoClose: 5000,
+                title: "Couldn't find your location 😥",
+                message:
+                    "Please allow location permissions to ensure your location and prayer times are accurate.",
+                color: "red",
+                icon: <MapPinOff />,
+            })
+        }
 
         navigator.geolocation.getCurrentPosition(success, error)
     }

@@ -11,6 +11,7 @@ import React from "react"
 import "./App.css"
 import ToggleThemeButton from "./components/ToggleThemeButton"
 import PrayerTimes from "./components/PrayerTimes"
+import { NotificationsProvider } from "@mantine/notifications"
 
 function App() {
     const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -42,84 +43,86 @@ function App() {
             toggleColorScheme={toggleColorScheme}
         >
             <MantineProvider theme={myTheme}>
-                <Paper
-                    p={0}
-                    radius={0}
-                    sx={{
-                        minHeight: "100vh",
-                    }}
-                >
-                    <Grid
-                        gutter={0}
-                        justify="center"
-                        style={{ minHeight: "100vh", padding: "1rem" }}
-                        align="stretch"
+                <NotificationsProvider position="bottom-right">
+                    <Paper
+                        p={0}
+                        radius={0}
+                        sx={{
+                            minHeight: "100vh",
+                        }}
                     >
-                        <Grid.Col
-                            span={4}
-                            style={{
-                                border: "solid 1px red",
-                                // minHeight: "20vh",
-                            }}
+                        <Grid
+                            gutter={0}
+                            justify="center"
+                            style={{ minHeight: "100vh", padding: "1rem" }}
+                            align="stretch"
                         >
-                            Quran Quotes
-                        </Grid.Col>
-                        <Grid.Col
-                            span={4}
-                            style={{
-                                border: "solid 1px red",
-                                display: "flex",
-                                justifyContent: "center",
-                                // minHeight: "20vh",
-                            }}
-                        >
-                            <ToggleThemeButton />
-                        </Grid.Col>
-                        <Grid.Col
-                            span={4}
-                            style={{
-                                border: "solid 1px red",
-                                display: "flex",
-                                justifyContent: "flex-end",
-                                // minHeight: "20vh",
-                            }}
-                        >
-                            Weather
-                        </Grid.Col>
-                        <Grid.Col
-                            span={12}
-                            style={{
-                                border: "solid 1px red",
-                                minHeight: "50vh",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                flexDirection: "column",
-                            }}
-                        >
-                            <PrayerTimes />
-                        </Grid.Col>
-                        <Grid.Col
-                            span={4}
-                            style={{
-                                border: "solid 1px red",
-                                // minHeight: "10vh",
-                            }}
-                        >
-                            options/settings
-                        </Grid.Col>
-                        <Grid.Col
-                            span={4}
-                            offset={4}
-                            style={{
-                                border: "solid 1px red",
-                                // minHeight: "10vh",
-                            }}
-                        >
-                            to-do
-                        </Grid.Col>
-                    </Grid>
-                </Paper>
+                            <Grid.Col
+                                span={4}
+                                style={
+                                    {
+                                        // minHeight: "20vh",
+                                    }
+                                }
+                            >
+                                {/* Quran Quotes */}
+                            </Grid.Col>
+                            <Grid.Col
+                                span={4}
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    // minHeight: "20vh",
+                                }}
+                            >
+                                <ToggleThemeButton />
+                            </Grid.Col>
+                            <Grid.Col
+                                span={4}
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "flex-end",
+                                    // minHeight: "20vh",
+                                }}
+                            >
+                                {/* Weather */}
+                            </Grid.Col>
+                            <Grid.Col
+                                span={12}
+                                style={{
+                                    minHeight: "50vh",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    flexDirection: "column",
+                                }}
+                            >
+                                <PrayerTimes />
+                            </Grid.Col>
+                            <Grid.Col
+                                span={4}
+                                style={
+                                    {
+                                        // minHeight: "10vh",
+                                    }
+                                }
+                            >
+                                {/* options/settings */}
+                            </Grid.Col>
+                            <Grid.Col
+                                span={4}
+                                offset={4}
+                                style={
+                                    {
+                                        // minHeight: "10vh",
+                                    }
+                                }
+                            >
+                                {/* to-do */}
+                            </Grid.Col>
+                        </Grid>
+                    </Paper>
+                </NotificationsProvider>
             </MantineProvider>
         </ColorSchemeProvider>
     )
