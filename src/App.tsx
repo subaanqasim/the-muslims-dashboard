@@ -12,7 +12,7 @@ import "./App.css"
 import ToggleThemeButton from "./components/ToggleThemeButton"
 import PrayerTimes from "./components/PrayerTimes"
 import { NotificationsProvider } from "@mantine/notifications"
-import Weather from "./components/Weather"
+import WeatherWidget from "./components/Weather/WeatherWidget"
 
 function App() {
     const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -76,7 +76,7 @@ function App() {
                                     alignItems: "flex-start",
                                 }}
                             >
-                                <Weather />
+                                <WeatherWidget />
                             </Grid.Col>
                             <Grid.Col
                                 span={12}
