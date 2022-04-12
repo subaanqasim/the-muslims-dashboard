@@ -12,6 +12,7 @@ import "./App.css"
 import ToggleThemeButton from "./components/ToggleThemeButton"
 import PrayerTimes from "./components/PrayerTimes"
 import { NotificationsProvider } from "@mantine/notifications"
+import Weather from "./components/Weather"
 
 function App() {
     const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -72,9 +73,10 @@ function App() {
                                 style={{
                                     display: "flex",
                                     justifyContent: "flex-end",
+                                    alignItems: "flex-start",
                                 }}
                             >
-                                {/* Weather */}
+                                <Weather />
                             </Grid.Col>
                             <Grid.Col
                                 span={12}
