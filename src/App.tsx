@@ -57,22 +57,12 @@ function App() {
                             style={{ minHeight: "100vh", padding: "1rem" }}
                             align="stretch"
                         >
-                            <Grid.Col
-                                span={4}
-                                style={
-                                    {
-                                        // minHeight: "20vh",
-                                    }
-                                }
-                            >
-                                {/* Quran Quotes */}
-                            </Grid.Col>
+                            <Grid.Col span={4}>{/* Quran Quotes */}</Grid.Col>
                             <Grid.Col
                                 span={4}
                                 style={{
                                     display: "flex",
                                     justifyContent: "center",
-                                    // minHeight: "20vh",
                                 }}
                             >
                                 <ToggleThemeButton />
@@ -82,7 +72,6 @@ function App() {
                                 style={{
                                     display: "flex",
                                     justifyContent: "flex-end",
-                                    // minHeight: "20vh",
                                 }}
                             >
                                 {/* Weather */}
@@ -99,25 +88,10 @@ function App() {
                             >
                                 <PrayerTimes />
                             </Grid.Col>
-                            <Grid.Col
-                                span={4}
-                                style={
-                                    {
-                                        // minHeight: "10vh",
-                                    }
-                                }
-                            >
+                            <Grid.Col span={4}>
                                 {/* options/settings */}
                             </Grid.Col>
-                            <Grid.Col
-                                span={4}
-                                offset={4}
-                                style={
-                                    {
-                                        // minHeight: "10vh",
-                                    }
-                                }
-                            >
+                            <Grid.Col span={4} offset={4}>
                                 {/* to-do */}
                             </Grid.Col>
                         </Grid>
