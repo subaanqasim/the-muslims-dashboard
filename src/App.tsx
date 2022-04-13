@@ -24,8 +24,7 @@ function App() {
     const toggleColorScheme = (value?: ColorScheme) =>
         setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"))
 
-    // TODO: figure out shortcut for windows/mac
-    useHotkeys([["ctrl+J", () => toggleColorScheme]])
+    useHotkeys([["mod+J", () => toggleColorScheme()]])
 
     const myTheme: MantineThemeOverride = {
         colorScheme: colorScheme,
