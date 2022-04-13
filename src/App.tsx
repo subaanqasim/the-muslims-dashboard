@@ -13,6 +13,7 @@ import ToggleThemeButton from "./components/ToggleThemeButton"
 import PrayerTimes from "./components/PrayerTimes"
 import { NotificationsProvider } from "@mantine/notifications"
 import WeatherWidget from "./components/Weather/WeatherWidget"
+import { Reminders } from "./components/Reminders"
 
 function App() {
     const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -61,7 +62,9 @@ function App() {
                             style={{ minHeight: "100vh", padding: "1rem" }}
                             align="stretch"
                         >
-                            <Grid.Col span={4}>{/* Quran Quotes */}</Grid.Col>
+                            <Grid.Col span={4}>
+                                <Reminders />
+                            </Grid.Col>
                             <Grid.Col
                                 span={4}
                                 style={{

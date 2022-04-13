@@ -56,7 +56,7 @@ function WeatherWidget() {
             shadow="md"
             withBorder
             className={classes.card}
-            mt={ICON_SIZE / 3}
+            mt={ICON_SIZE / 5}
         >
             <LoadingOverlay visible={isLoading} />
             {weather && <CurrentWeather weather={weather} />}
