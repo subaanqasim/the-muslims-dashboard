@@ -8,6 +8,7 @@ function HourlyWeather(props) {
 
     const hourlyWeatherElements = hourlyWeatherData.map((item) => (
         <div
+            key={item.time}
             style={{
                 display: "flex",
                 flexDirection: "column",
