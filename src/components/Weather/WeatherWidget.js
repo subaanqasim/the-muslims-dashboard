@@ -6,7 +6,6 @@ import {
     Paper,
     ActionIcon,
     LoadingOverlay,
-    Skeleton,
 } from "@mantine/core"
 import { Refresh } from "tabler-icons-react"
 import { LocationContext } from "../../LocationContext"

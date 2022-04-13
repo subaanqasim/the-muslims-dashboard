@@ -31,7 +31,7 @@ function LocationContextProvider(props) {
         }
         const error = () => {
             showNotification({
-                autoClose: 5000,
+                autoClose: 7000,
                 title: "Couldn't find your location 😥",
                 message:
                     "Please allow location permissions to ensure your location and prayer times are accurate.",
