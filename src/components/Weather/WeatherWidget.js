@@ -44,7 +44,6 @@ function WeatherWidget() {
             variant="hover"
             onClick={() => refreshWeather()}
             title="Refresh weather"
-            color="orange"
         >
             <Refresh size={12} />
         </ActionIcon>
@@ -56,7 +55,7 @@ function WeatherWidget() {
             shadow="md"
             withBorder
             className={classes.card}
-            mt={ICON_SIZE / 5}
+            // mt={ICON_SIZE / 5}
         >
             <LoadingOverlay visible={isLoading} />
             {weather && <CurrentWeather weather={weather} />}
