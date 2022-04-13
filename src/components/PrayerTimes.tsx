@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react"
-import { ActionIcon, Table, Text, Title } from "@mantine/core"
+import { ActionIcon, Paper, Table, Text, Title } from "@mantine/core"
 import { LocationContext } from "../LocationContext"
 import { Refresh } from "tabler-icons-react"
 import adhan from "adhan"
@@ -110,45 +110,64 @@ function PrayerTimes() {
 
     return (
         <>
-            <Title style={{ display: "block" }} order={3}>
-                {currentPrayer}
-            </Title>
-            <Text size="sm" color="gray">
-                {date.toLocaleDateString("en-uk", {
-                    weekday: "long",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                })}
-            </Text>
-            <Table
-                highlightOnHover
-                fontSize="sm"
-                captionSide="bottom"
-                verticalSpacing="sm"
+            <Paper
+                p="md"
+                radius="md"
+                shadow="md"
+                withBorder
                 style={{
-                    minWidth: "20em",
-                    maxWidth: "24em",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
                 }}
             >
-                <tbody>{rows}</tbody>
-                <caption
+                <Title order={3}>{currentPrayer}</Title>
+                <Text size="sm" color="gray">
+                    {date.toLocaleDateString("en-uk", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                    })}
+                </Text>
+                <Table
+                    highlightOnHover
+                    fontSize="sm"
+                    verticalSpacing="sm"
+                    // horizontalSpacing="xs"
                     style={{
-                        fontSize: "0.75rem",
+                        minWidth: "20em",
+                        maxWidth: "24em",
                     }}
                 >
-                    Location: {location.city}, {location.state}
+                    <tbody>{rows}</tbody>
+                    <caption
+                        style={{
+                            fontSize: "0.75rem",
+                        }}
+                    ></caption>
+                </Table>
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <Text size="xs">
+                        Location: {location.city}, {location.state}
+                    </Text>
                     <ActionIcon
                         color="gray" // TODO: adjust colour to match location text
                         variant="hover"
                         title="Refresh location"
                         onClick={() => refreshLocation()}
-                        style={{ marginLeft: "4px", display: "inline-block" }} // TODO: CENTER ALIGN BUTTON WITH LOCATION TEXT
+                        style={{ marginLeft: "4px" }} // TODO: CENTER ALIGN BUTTON WITH LOCATION TEXT
                     >
                         <Refresh size="1rem" />
                     </ActionIcon>
-                </caption>
-            </Table>
+                </div>
+            </Paper>
         </>
     )
 }

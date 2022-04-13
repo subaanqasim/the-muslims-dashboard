@@ -47,9 +47,13 @@ function App() {
                     <Paper
                         p={0}
                         radius={0}
-                        sx={{
+                        sx={(theme) => ({
                             minHeight: "100vh",
-                        }}
+                            backgroundColor:
+                                theme.colorScheme === "dark"
+                                    ? theme.colors.dark[9]
+                                    : theme.colors.gray[0],
+                        })}
                     >
                         <Grid
                             gutter={0}

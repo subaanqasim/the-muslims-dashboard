@@ -18,7 +18,7 @@ const useStyles = createStyles((theme) => ({
     card: {
         position: "relative",
         overflow: "visible",
-        padding: theme.spacing.xl,
+        padding: theme.spacing.md,
         paddingTop: theme.spacing.xl + ICON_SIZE / 3,
         minWidth: "20em",
     },
