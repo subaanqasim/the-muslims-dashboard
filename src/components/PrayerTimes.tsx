@@ -16,6 +16,9 @@ function PrayerTimes() {
     const sunnahTimes = new adhan.SunnahTimes(prayerTimes)
 
     useEffect(() => {
+        if (new Date().valueOf() - location.lastUpdated > 3600000) {
+            refreshLocation()
+        }
         const times = todayPrayerTimes.map((prayer) => ({
             prayer: prayer.prayer,
             time: prayer.time,

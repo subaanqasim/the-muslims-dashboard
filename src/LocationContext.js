@@ -12,6 +12,7 @@ function LocationContextProvider(props) {
             longitude: 0.1276,
             city: "London",
             state: "England",
+            lastUpdated: new Date().valueOf(),
         },
     })
 
@@ -27,6 +28,7 @@ function LocationContextProvider(props) {
                 longitude: longitude,
                 city: data[0].name,
                 state: data[0].state,
+                lastUpdated: new Date().valueOf(),
             })
         }
         const error = () => {
