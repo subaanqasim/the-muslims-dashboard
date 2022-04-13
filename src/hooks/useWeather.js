@@ -18,6 +18,8 @@ function useWeather() {
     }
 
     async function refreshWeather() {
+        setIsLoading(true)
+        setIsError(false)
         const res = await fetch(
             `https://api.openweathermap.org/data/2.5/onecall?lat=${location.latitude}&lon=${location.longitude}&exclude=minutely,alerts&units=metric&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
         )

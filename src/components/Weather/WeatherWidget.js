@@ -1,5 +1,13 @@
 import React, { useContext, useEffect } from "react"
-import { createStyles, Group, Badge, Paper, ActionIcon } from "@mantine/core"
+import {
+    createStyles,
+    Group,
+    Badge,
+    Paper,
+    ActionIcon,
+    LoadingOverlay,
+    Skeleton,
+} from "@mantine/core"
 import { Refresh } from "tabler-icons-react"
 import { LocationContext } from "../../LocationContext"
 import useWeather from "../../hooks/useWeather"
@@ -24,19 +32,19 @@ const useStyles = createStyles((theme) => ({
 function WeatherWidget() {
     const { classes } = useStyles()
     const { location, refreshLocation } = useContext(LocationContext)
-    const { weather, refreshWeather } = useWeather()
+    const { weather, refreshWeather, isLoading } = useWeather()
 
     useEffect(() => {
         refreshWeather()
-    }, [])
+    }, [location])
 
     const refreshButton = (
         <ActionIcon
             size="xs"
             radius="sm"
             variant="hover"
-            onClick={() => refreshLocation()}
-            title="Refresh location"
+            onClick={() => refreshWeather()}
+            title="Refresh weather"
             color="orange"
         >
             <Refresh size={12} />
@@ -51,6 +59,7 @@ function WeatherWidget() {
             className={classes.card}
             mt={ICON_SIZE / 3}
         >
+            <LoadingOverlay visible={isLoading} />
             {weather && <CurrentWeather weather={weather} />}
 
             {weather && (
