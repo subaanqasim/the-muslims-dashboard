@@ -1,6 +1,5 @@
 import { createStyles, Text, ThemeIcon, Title } from "@mantine/core"
 import React from "react"
-import { Cloud } from "tabler-icons-react"
 
 const ICON_SIZE = 60
 const useStyles = createStyles((theme) => ({
@@ -28,7 +27,7 @@ function CurrentWeather(props) {
                 size={ICON_SIZE}
                 radius={ICON_SIZE}
             >
-                <Cloud size={34} />
+                {currentWeatherData.icon}
             </ThemeIcon>
             <Text
                 className={classes.description}

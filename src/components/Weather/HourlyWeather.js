@@ -1,6 +1,5 @@
 import { Text } from "@mantine/core"
 import React from "react"
-import { CloudRain } from "tabler-icons-react"
 
 function HourlyWeather(props) {
     const {
@@ -15,7 +14,7 @@ function HourlyWeather(props) {
                 alignItems: "center",
             }}
         >
-            <CloudRain size="1.5rem" style={{ margin: "0.25em 0em" }} />
+            {item.icon}
             <Text size="xs">{item.time}</Text>
             <Text size="xs" color="dimmed">
                 {item.temp}ºC
