@@ -40,7 +40,7 @@ function App() {
         },
     }
 
-    const smallScreen = useMediaQuery("(max-width: 1090px)")
+    const smallScreen = useMediaQuery("(max-width: 1030px)")
 
     return (
         <ColorSchemeProvider
