@@ -118,7 +118,7 @@ function PrayerTimes() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                maxWidth: "25rem",
+                // maxWidth: "40em",
             }}
         >
             <Title order={3}>{currentPrayer}</Title>
@@ -136,8 +136,8 @@ function PrayerTimes() {
                 verticalSpacing="sm"
                 // horizontalSpacing="xs"
                 style={{
-                    minWidth: "20em",
-                    maxWidth: "24em",
+                    minWidth: "30em",
+                    // maxWidth: "40em",
                 }}
             >
                 <tbody>{rows}</tbody>
