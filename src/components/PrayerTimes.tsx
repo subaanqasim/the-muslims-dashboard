@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react"
-import { ActionIcon, Paper, Table, Text, Title } from "@mantine/core"
+import { ActionIcon, Mark, Paper, Table, Text, Title } from "@mantine/core"
 import { LocationContext } from "../LocationContext"
 import { Refresh } from "tabler-icons-react"
 import adhan from "adhan"
@@ -146,7 +146,12 @@ function PrayerTimes() {
             }}
         >
             <Title order={3}>{currentPrayer}</Title>
-            <Text>{`${timeToNextP} until ${nextPrayer}`}</Text>
+            <Text>
+                <Mark color="orange" style={{ fontWeight: "600" }}>
+                    {timeToNextP}
+                </Mark>{" "}
+                until <span style={{ fontWeight: "600" }}>{nextPrayer}</span>
+            </Text>
             <Text size="sm" color="gray">
                 {date.toLocaleDateString("en-uk", {
                     weekday: "long",
