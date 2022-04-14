@@ -1,12 +1,14 @@
 import {
     ColorScheme,
     ColorSchemeProvider,
-    Grid,
+    Container,
+    Group,
     MantineProvider,
     MantineThemeOverride,
     Paper,
+    Stack,
 } from "@mantine/core"
-import { useHotkeys, useLocalStorage } from "@mantine/hooks"
+import { useHotkeys, useLocalStorage, useMediaQuery } from "@mantine/hooks"
 import React from "react"
 import "./App.css"
 import ToggleThemeButton from "./components/ToggleThemeButton"
@@ -38,6 +40,8 @@ function App() {
         },
     }
 
+    const smallScreen = useMediaQuery("(max-width: 1030px)")
+
     return (
         <ColorSchemeProvider
             colorScheme={colorScheme}
@@ -56,53 +60,33 @@ function App() {
                                     : theme.colors.gray[0],
                         })}
                     >
-                        <Grid
-                            gutter={0}
-                            justify="center"
-                            style={{ minHeight: "100vh", padding: "1rem" }}
-                            align="stretch"
+                        <Stack
+                            spacing="lg"
+                            p="1.5rem"
+                            justify="space-between"
+                            style={{
+                                minHeight: "100vh",
+                            }}
                         >
-                            <Grid.Col span={4}>
+                            <Group
+                                position="apart"
+                                direction={smallScreen ? "column" : "row"}
+                                align={smallScreen ? "center" : "flex-start"}
+                            >
                                 <Reminders />
-                            </Grid.Col>
-                            <Grid.Col
-                                span={4}
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                }}
-                            >
-                                <ToggleThemeButton />
-                            </Grid.Col>
-                            <Grid.Col
-                                span={4}
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "flex-end",
-                                    alignItems: "flex-start",
-                                }}
-                            >
                                 <WeatherWidget />
-                            </Grid.Col>
-                            <Grid.Col
-                                span={12}
+                            </Group>
+                            <Container
                                 style={{
-                                    minHeight: "50vh",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    flexDirection: "column",
+                                    maxWidth: "25rem",
                                 }}
                             >
                                 <PrayerTimes />
-                            </Grid.Col>
-                            <Grid.Col span={4}>
-                                {/* options/settings */}
-                            </Grid.Col>
-                            <Grid.Col span={4} offset={4}>
-                                {/* to-do */}
-                            </Grid.Col>
-                        </Grid>
+                            </Container>
+                            <Group mt="auto">
+                                <ToggleThemeButton />
+                            </Group>
+                        </Stack>
                     </Paper>
                 </NotificationsProvider>
             </MantineProvider>
