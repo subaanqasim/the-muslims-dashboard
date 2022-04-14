@@ -3,34 +3,22 @@ import { ActionIcon, Paper, Table, Text, Title } from "@mantine/core"
 import { LocationContext } from "../LocationContext"
 import { Refresh } from "tabler-icons-react"
 import adhan from "adhan"
+import dayjs from "dayjs"
+import utc from "dayjs/plugin/utc"
+dayjs.extend(utc)
 
 function PrayerTimes() {
     const { location, refreshLocation } = useContext(LocationContext)
     const date = new Date()
     const [hour12, setHour12] = useState(false) //TODO: add button/menu option for user to be able to change time formatting
     const [currentPrayer, setCurrentPrayer] = useState("")
+    const [nextPrayer, setNextPrayer] = useState("")
+    const [timeToNextP, setTimeToNextP] = useState("")
 
     const coords = new adhan.Coordinates(location.latitude, location.longitude)
     const params = adhan.CalculationMethod.MoonsightingCommittee()
     const prayerTimes = new adhan.PrayerTimes(coords, date, params)
     const sunnahTimes = new adhan.SunnahTimes(prayerTimes)
-
-    useEffect(() => {
-        if (new Date().valueOf() - location.lastUpdated > 3600000) {
-            refreshLocation()
-        }
-        const times = todayPrayerTimes.map((prayer) => ({
-            prayer: prayer.prayer,
-            time: prayer.time,
-        }))
-
-        for (let i = 0; i < times.length; i++) {
-            if (new Date() < times[i].time) {
-                setCurrentPrayer(times[i - 1].prayer)
-                break
-            }
-        }
-    }, [])
 
     const todayPrayerTimes = [
         {
@@ -101,6 +89,42 @@ function PrayerTimes() {
         },
     ]
 
+    useEffect(() => {
+        if (new Date().valueOf() - location.lastUpdated > 3600000) {
+            refreshLocation()
+        }
+
+        for (let i = 0; i < todayPrayerTimes.length; i++) {
+            if (new Date() < todayPrayerTimes[i].time) {
+                setCurrentPrayer(todayPrayerTimes[i - 1].prayer)
+                break
+            }
+        }
+    }, [])
+
+    useEffect(() => {
+        let nextPrayerTime = new Date()
+        for (let i = 0; i < todayPrayerTimes.length; i++) {
+            if (new Date() < todayPrayerTimes[i].time) {
+                nextPrayerTime = todayPrayerTimes[i].time
+                setNextPrayer(todayPrayerTimes[i].prayer)
+                break
+            }
+        }
+
+        setInterval(() => {
+            updateRemainingTime(nextPrayerTime)
+        }, 1000)
+    }, [])
+
+    function updateRemainingTime(timeOfNextPrayer: any) {
+        const timeRemaining = timeOfNextPrayer - new Date().valueOf()
+        const formattedTimeRemaining = dayjs
+            .utc(timeRemaining)
+            .format("HH:mm:ss")
+        setTimeToNextP(formattedTimeRemaining)
+    }
+
     const rows = todayPrayerTimes.map((prayer) => (
         <tr key={prayer.prayer}>
             <td>{prayer.prayer}</td>
@@ -122,6 +146,7 @@ function PrayerTimes() {
             }}
         >
             <Title order={3}>{currentPrayer}</Title>
+            <Text>{`${timeToNextP} until ${nextPrayer}`}</Text>
             <Text size="sm" color="gray">
                 {date.toLocaleDateString("en-uk", {
                     weekday: "long",
