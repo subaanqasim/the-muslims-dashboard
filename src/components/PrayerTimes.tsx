@@ -109,66 +109,65 @@ function PrayerTimes() {
     ))
 
     return (
-        <>
-            <Paper
-                p="md"
-                radius="md"
-                shadow="md"
-                withBorder
+        <Paper
+            p="md"
+            radius="md"
+            shadow="md"
+            withBorder
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                maxWidth: "25rem",
+            }}
+        >
+            <Title order={3}>{currentPrayer}</Title>
+            <Text size="sm" color="gray">
+                {date.toLocaleDateString("en-uk", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                })}
+            </Text>
+            <Table
+                highlightOnHover
+                fontSize="sm"
+                verticalSpacing="sm"
+                // horizontalSpacing="xs"
+                style={{
+                    minWidth: "20em",
+                    maxWidth: "24em",
+                }}
+            >
+                <tbody>{rows}</tbody>
+                <caption
+                    style={{
+                        fontSize: "0.75rem",
+                    }}
+                ></caption>
+            </Table>
+            <div
                 style={{
                     display: "flex",
-                    flexDirection: "column",
+                    justifyContent: "center",
                     alignItems: "center",
                 }}
             >
-                <Title order={3}>{currentPrayer}</Title>
-                <Text size="sm" color="gray">
-                    {date.toLocaleDateString("en-uk", {
-                        weekday: "long",
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                    })}
+                <Text size="xs">
+                    Location: {location.city}, {location.state}
                 </Text>
-                <Table
-                    highlightOnHover
-                    fontSize="sm"
-                    verticalSpacing="sm"
-                    // horizontalSpacing="xs"
-                    style={{
-                        minWidth: "20em",
-                        maxWidth: "24em",
-                    }}
+                <ActionIcon
+                    color="gray" // TODO: adjust colour to match location text
+                    variant="hover"
+                    title="Refresh location"
+                    onClick={() => refreshLocation()}
+                    style={{ marginLeft: "4px" }} // TODO: CENTER ALIGN BUTTON WITH LOCATION TEXT
                 >
-                    <tbody>{rows}</tbody>
-                    <caption
-                        style={{
-                            fontSize: "0.75rem",
-                        }}
-                    ></caption>
-                </Table>
-                <div
-                    style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}
-                >
-                    <Text size="xs">
-                        Location: {location.city}, {location.state}
-                    </Text>
-                    <ActionIcon
-                        color="gray" // TODO: adjust colour to match location text
-                        variant="hover"
-                        title="Refresh location"
-                        onClick={() => refreshLocation()}
-                        style={{ marginLeft: "4px" }} // TODO: CENTER ALIGN BUTTON WITH LOCATION TEXT
-                    >
-                        <Refresh size="1rem" />
-                    </ActionIcon>
-                </div>
-            </Paper>
-        </>
+                    <Refresh size="1rem" />
+                </ActionIcon>
+            </div>
+        </Paper>
     )
 }
 

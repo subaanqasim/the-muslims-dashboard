@@ -76,11 +76,7 @@ function App() {
                                 <Reminders />
                                 <WeatherWidget />
                             </Group>
-                            <Container
-                                style={{
-                                    maxWidth: "25rem",
-                                }}
-                            >
+                            <Container>
                                 <PrayerTimes />
                             </Container>
                             <Group mt="auto">

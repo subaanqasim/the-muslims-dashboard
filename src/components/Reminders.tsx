@@ -24,7 +24,13 @@ export function Reminders() {
     }, [])
 
     return (
-        <Paper withBorder p="md" radius="md" shadow="md">
+        <Paper
+            withBorder
+            p="md"
+            radius="md"
+            shadow="md"
+            style={{ maxWidth: "700px", minWidth: "500px" }}
+        >
             <Tabs grow>
                 <Tabs.Tab label="Qur'an" icon={<Photo size={14} />}>
                     <Blockquote
