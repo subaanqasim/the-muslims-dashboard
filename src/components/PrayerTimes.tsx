@@ -111,7 +111,7 @@ function PrayerTimes() {
                 break
             }
         }
-
+        updateRemainingTime(nextPrayerTime)
         setInterval(() => {
             updateRemainingTime(nextPrayerTime)
         }, 1000)
@@ -142,7 +142,7 @@ function PrayerTimes() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                maxWidth: "25rem",
+                // minWidth: "25rem",
             }}
         >
             <Title order={3}>{currentPrayer}</Title>
@@ -161,8 +161,8 @@ function PrayerTimes() {
                 verticalSpacing="sm"
                 // horizontalSpacing="xs"
                 style={{
-                    minWidth: "20em",
-                    maxWidth: "24em",
+                    minWidth: "26em",
+                    maxWidth: "35em",
                 }}
             >
                 <tbody>{rows}</tbody>
