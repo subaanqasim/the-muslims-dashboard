@@ -1,23 +1,35 @@
 import React, { useEffect, useState } from "react"
 import { Button, Paper, Text, Group, Tabs, Blockquote } from "@mantine/core"
-import { MessageCircle, Photo } from "tabler-icons-react"
+import { Book, Folders } from "tabler-icons-react"
 
 export function Reminders() {
     const [quranVerse, setQuranVerse] = useState({
         text: "",
-        verseKey: "",
+        chapter: 0,
+        verse: 0,
     })
 
     useEffect(() => {
+        // const fetchVerse = async () => {
+        //     const res = await fetch(
+        //         `https://api.quran.com/api/v4/verses/random?language=en&words=false&translations=131`
+        //     )
+        //     const data = await res.json()
+        //     setQuranVerse({
+        //         text: data.verse.translations[0].text,
+        //         verseKey: data.verse.verse_key,
+        //     })
+        // }
         const fetchVerse = async () => {
-            const res = await fetch(
-                `https://api.quran.com/api/v4/verses/random?language=en&words=false&translations=131`
-            )
+            const res = await fetch("../../../assets/quranEn.json")
             const data = await res.json()
-
+            const randomVerse = await data.quran[
+                Math.floor(Math.random() * 6236)
+            ]
             setQuranVerse({
-                text: data.verse.translations[0].text,
-                verseKey: data.verse.verse_key,
+                text: randomVerse.text,
+                chapter: randomVerse.chapter,
+                verse: randomVerse.verse,
             })
         }
         fetchVerse()
@@ -32,9 +44,9 @@ export function Reminders() {
             style={{ maxWidth: "700px", minWidth: "500px" }}
         >
             <Tabs grow>
-                <Tabs.Tab label="Qur'an" icon={<Photo size={14} />}>
+                <Tabs.Tab label="Qur'an" icon={<Book size={16} />}>
                     <Blockquote
-                        cite={`– ${quranVerse.verseKey}`}
+                        cite={`– Surah ${quranVerse.chapter}, verse ${quranVerse.verse}`}
                         style={{ fontSize: "1rem", padding: "0" }}
                     >
                         <Text lineClamp={5}>{quranVerse.text}</Text>
@@ -44,10 +56,7 @@ export function Reminders() {
                             variant="subtle"
                             size="sm"
                             component="a"
-                            href={`https://quran.com/${quranVerse.verseKey.replace(
-                                ":",
-                                "/"
-                            )}`}
+                            href={`https://quran.com/${quranVerse.chapter}/${quranVerse.verse}`}
                             rel="noopener noreferrer"
                         >
                             Read more
@@ -55,7 +64,7 @@ export function Reminders() {
                     </Group>
                 </Tabs.Tab>
 
-                <Tabs.Tab label="Hadith" icon={<MessageCircle size={14} />}>
+                <Tabs.Tab label="Hadith" icon={<Folders size={14} />}>
                     <Text size="lg" weight={600} mb="sm">
                         Coming Soon insha'Allah
                     </Text>
