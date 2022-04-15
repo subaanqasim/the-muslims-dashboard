@@ -1,5 +1,5 @@
 import { useState, useContext } from "react"
-import { LocationContext } from "../LocationContext"
+import { LocationContext } from "../context/LocationContext"
 import getCurrentWeather from "../helpers/getCurrentWeather"
 import getHourlyWeather from "../helpers/getHourlyWeather"
 import { showNotification } from "@mantine/notifications"
@@ -14,7 +14,6 @@ function useWeather() {
     function gatherWeatherData(data) {
         const currentWeatherData = getCurrentWeather(data)
         const hourlyWeatherData = getHourlyWeather(data)
-
         setWeather({ currentWeatherData, hourlyWeatherData })
         setIsLoading(false)
     }

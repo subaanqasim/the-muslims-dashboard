@@ -1,16 +1,17 @@
 import React, { useContext, useEffect, useState } from "react"
 import { ActionIcon, Mark, Paper, Table, Text, Title } from "@mantine/core"
-import { LocationContext } from "../LocationContext"
+import { LocationContext } from "../context/LocationContext"
 import { Refresh } from "tabler-icons-react"
 import adhan from "adhan"
 import dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
+import { useUserPrefs } from "../context/UserPrefContext"
 dayjs.extend(utc)
 
 function PrayerTimes() {
     const { location, refreshLocation } = useContext(LocationContext)
     const date = new Date()
-    const [hour12, setHour12] = useState(false) //TODO: add button/menu option for user to be able to change time formatting
+    const userPrefs = useUserPrefs()
     const [currentPrayer, setCurrentPrayer] = useState("")
     const [nextPrayer, setNextPrayer] = useState("")
     const [timeToNextP, setTimeToNextP] = useState("")
@@ -27,7 +28,7 @@ function PrayerTimes() {
             formattedTime: prayerTimes.fajr.toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
-                hour12: hour12,
+                hour12: userPrefs.hour12,
             }),
         },
         {
@@ -36,7 +37,7 @@ function PrayerTimes() {
             formattedTime: prayerTimes.sunrise.toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
-                hour12: hour12,
+                hour12: userPrefs.hour12,
             }),
         },
         {
@@ -45,7 +46,7 @@ function PrayerTimes() {
             formattedTime: prayerTimes.dhuhr.toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
-                hour12: hour12,
+                hour12: userPrefs.hour12,
             }),
         },
         {
@@ -54,7 +55,7 @@ function PrayerTimes() {
             formattedTime: prayerTimes.asr.toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
-                hour12: hour12,
+                hour12: userPrefs.hour12,
             }),
         },
         {
@@ -63,7 +64,7 @@ function PrayerTimes() {
             formattedTime: prayerTimes.maghrib.toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
-                hour12: hour12,
+                hour12: userPrefs.hour12,
             }),
         },
         {
@@ -72,7 +73,7 @@ function PrayerTimes() {
             formattedTime: prayerTimes.isha.toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
-                hour12: hour12,
+                hour12: userPrefs.hour12,
             }),
         },
         {
@@ -83,7 +84,7 @@ function PrayerTimes() {
                 {
                     hour: "2-digit",
                     minute: "2-digit",
-                    hour12: hour12,
+                    hour12: userPrefs.hour12,
                 }
             ),
         },
@@ -147,7 +148,7 @@ function PrayerTimes() {
         >
             <Title order={3}>{currentPrayer}</Title>
             <Text>
-                <Mark color="orange" style={{ fontWeight: "600" }}>
+                <Mark color={userPrefs.colour} style={{ fontWeight: "600" }}>
                     {timeToNextP}
                 </Mark>{" "}
                 until <span style={{ fontWeight: "600" }}>{nextPrayer}</span>
@@ -164,7 +165,6 @@ function PrayerTimes() {
                 highlightOnHover
                 fontSize="sm"
                 verticalSpacing="sm"
-                // horizontalSpacing="xs"
                 style={{
                     minWidth: "26em",
                     maxWidth: "35em",
@@ -192,7 +192,7 @@ function PrayerTimes() {
                     variant="hover"
                     title="Refresh location"
                     onClick={() => refreshLocation()}
-                    style={{ marginLeft: "4px" }} // TODO: CENTER ALIGN BUTTON WITH LOCATION TEXT
+                    style={{ marginLeft: "4px" }}
                 >
                     <Refresh size="1rem" />
                 </ActionIcon>

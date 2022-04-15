@@ -1,12 +1,15 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import App from "./App"
-import { LocationContextProvider } from "./LocationContext"
+import { LocationContextProvider } from "./context/LocationContext"
+import { UserPrefsContextProvider } from "./context/UserPrefContext"
 
 ReactDOM.render(
     <React.StrictMode>
         <LocationContextProvider>
-            <App />
+            <UserPrefsContextProvider>
+                <App />
+            </UserPrefsContextProvider>
         </LocationContextProvider>
     </React.StrictMode>,
     document.getElementById("root")

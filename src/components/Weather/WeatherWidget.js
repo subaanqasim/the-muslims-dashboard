@@ -8,10 +8,11 @@ import {
     LoadingOverlay,
 } from "@mantine/core"
 import { Refresh } from "tabler-icons-react"
-import { LocationContext } from "../../LocationContext"
+import { LocationContext } from "../../context/LocationContext"
 import useWeather from "../../hooks/useWeather"
 import CurrentWeather from "./CurrentWeather"
 import HourlyWeather from "./HourlyWeather"
+import { useUserPrefs } from "../../context/UserPrefContext"
 
 const ICON_SIZE = 60
 const useStyles = createStyles((theme) => ({
@@ -30,8 +31,9 @@ const useStyles = createStyles((theme) => ({
 
 function WeatherWidget() {
     const { classes } = useStyles()
-    const { location, refreshLocation } = useContext(LocationContext)
+    const { location } = useContext(LocationContext)
     const { weather, refreshWeather, isLoading } = useWeather()
+    const userPrefs = useUserPrefs()
 
     useEffect(() => {
         refreshWeather()
@@ -80,7 +82,7 @@ function WeatherWidget() {
                     {new Date().toLocaleTimeString([], {
                         hour: "2-digit",
                         minute: "2-digit",
-                        hour12: false,
+                        hour12: userPrefs.hour12,
                     })}
                 </Badge>
             </Group>

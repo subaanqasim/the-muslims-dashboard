@@ -16,6 +16,8 @@ import PrayerTimes from "./components/PrayerTimes"
 import { NotificationsProvider } from "@mantine/notifications"
 import WeatherWidget from "./components/Weather/WeatherWidget"
 import { Reminders } from "./components/Reminders"
+import PreferencesButton from "./components/PreferencesButton"
+import { useUserPrefs } from "./context/UserPrefContext"
 
 function App() {
     const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -29,9 +31,11 @@ function App() {
 
     useHotkeys([["mod+J", () => toggleColorScheme()]])
 
+    const userPrefs = useUserPrefs()
+
     const myTheme: MantineThemeOverride = {
         colorScheme: colorScheme,
-        primaryColor: "yellow",
+        primaryColor: userPrefs.colour,
         fontFamily:
             "Inter, -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji",
         headings: {
@@ -79,7 +83,8 @@ function App() {
                             <Container>
                                 <PrayerTimes />
                             </Container>
-                            <Group mt="auto">
+                            <Group mt="auto" spacing="xs">
+                                <PreferencesButton />
                                 <ToggleThemeButton />
                             </Group>
                         </Stack>
