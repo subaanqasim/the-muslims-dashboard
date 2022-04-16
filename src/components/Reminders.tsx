@@ -39,7 +39,6 @@ export function Reminders() {
         chapter: 0,
     })
 
-    console.log(hadith)
     useEffect(() => {
         // const fetchVerse = async () => {
         //     const res = await fetch(
@@ -82,7 +81,6 @@ export function Reminders() {
                 book: rand97,
                 chapter: res.hadiths![randHadith].chapter,
             })
-            console.log(res.hadiths![randHadith])
         }
 
         fetchHadith()
