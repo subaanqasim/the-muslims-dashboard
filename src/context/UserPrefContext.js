@@ -2,6 +2,7 @@ import React, { createContext, useContext } from "react"
 import { useLocalStorage } from "@mantine/hooks"
 
 const UserPrefsContext = createContext(null)
+
 const colourOptions = [
     { hex: "#495057", id: "gray" },
     { hex: "#f03e3e", id: "red" },
@@ -26,6 +27,7 @@ function UserPrefsContextProvider(props) {
         defaultValue: {
             colour: "cyan",
             hour12: false,
+            activeRemindersTab: 1,
         },
     })
 
@@ -47,9 +49,17 @@ function UserPrefsContextProvider(props) {
         setUserPrefs((prevPrefs) => ({ ...prevPrefs, hour12: bool }))
     }
 
+    // change reminders tab option
+    const changeRemTab = (tabNum) => {
+        setUserPrefs((prevPrefs) => ({
+            ...prevPrefs,
+            activeRemindersTab: tabNum,
+        }))
+    }
+
     return (
         <UserPrefsContext.Provider
-            value={{ userPrefs, changeColour, changeHour12 }}
+            value={{ userPrefs, changeColour, changeHour12, changeRemTab }}
         >
             {props.children}
         </UserPrefsContext.Provider>
@@ -94,9 +104,23 @@ const useChangeHour12Pref = () => {
         return context.changeHour12
     }
 }
+
+// hook to change current tab pref
+const useChangeRemTabPref = () => {
+    const context = useContext(UserPrefsContext)
+
+    if (context === undefined || context === null) {
+        throw new Error(
+            "useChangeRemTabPref must be used inside UserPrefsContextProvider"
+        )
+    } else {
+        return context.changeRemTab
+    }
+}
 export {
     UserPrefsContextProvider,
     useUserPrefs,
     useChangeColourPref,
     useChangeHour12Pref,
+    useChangeRemTabPref,
 }

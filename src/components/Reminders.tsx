@@ -11,10 +11,13 @@ import {
 import { Book, Folders } from "tabler-icons-react"
 import parse from "html-react-parser"
 import m3o from "m3o"
+import { useChangeRemTabPref, useUserPrefs } from "../context/UserPrefContext"
 const getHadith = m3o(process.env.REACT_APP_M3O_API_TOKEN).sunnah
 // const m3o = require("m30")(process.env.REACT_APP_M3O_API_TOKEN)
 
 export function Reminders() {
+    const userPrefs = useUserPrefs()
+    const changeTab = useChangeRemTabPref()
     const [quranVerse, setQuranVerse] = useState({
         text: "",
         chapter: 0,
@@ -93,7 +96,11 @@ export function Reminders() {
             shadow="md"
             style={{ maxWidth: "700px", minWidth: "500px" }}
         >
-            <Tabs grow>
+            <Tabs
+                grow
+                active={userPrefs.activeRemindersTab}
+                onTabChange={changeTab}
+            >
                 <Tabs.Tab label="Qur'an" icon={<Book size={16} />}>
                     <Blockquote
                         cite={`– Surah ${quranVerse.chapter}, verse ${quranVerse.verse}`}
