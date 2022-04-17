@@ -8,6 +8,7 @@ import {
     useMantineTheme,
     ColorPicker,
     Button,
+    useMantineColorScheme,
 } from "@mantine/core"
 import React, { useState } from "react"
 import { Adjustments, BrandInstagram, Mail } from "tabler-icons-react"
@@ -60,6 +61,7 @@ function PreferencesButton() {
     const userPrefs = useUserPrefs()
     const changeColour = useChangeColourPref()
     const changeHour12 = useChangeHour12Pref()
+    const { colorScheme, toggleColorScheme } = useMantineColorScheme()
 
     return (
         <>
@@ -114,6 +116,27 @@ function PreferencesButton() {
                         onChange={(event) =>
                             changeHour12(event.currentTarget.checked)
                         }
+                        className={classes.switch}
+                        size="lg"
+                    />
+                </Group>
+                <Group
+                    position="apart"
+                    className={classes.item}
+                    noWrap
+                    spacing="xl"
+                >
+                    <div>
+                        <Text>Dark Mode</Text>
+                        <Text size="xs" color="dimmed">
+                            Soothe your eyes in the dark 🌚
+                        </Text>
+                    </div>
+                    <Switch
+                        onLabel="ON"
+                        offLabel="OFF"
+                        checked={colorScheme === "dark"}
+                        onChange={() => toggleColorScheme()}
                         className={classes.switch}
                         size="lg"
                     />
