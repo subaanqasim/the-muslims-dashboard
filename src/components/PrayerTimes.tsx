@@ -2,11 +2,66 @@ import React, { useContext, useEffect, useState } from "react"
 import { ActionIcon, Mark, Paper, Table, Text, Title } from "@mantine/core"
 import { LocationContext } from "../context/LocationContext"
 import { Refresh } from "tabler-icons-react"
-import adhan from "adhan"
+import adhan, { CalculationParameters } from "adhan"
 import dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
 import { useUserPrefs } from "../context/UserPrefContext"
 dayjs.extend(utc)
+
+const calcMethodOptions = [
+    {
+        label: "Moonsighting Committee",
+        param: adhan.CalculationMethod.MoonsightingCommittee(),
+    },
+    {
+        label: "Muslim World League",
+        param: adhan.CalculationMethod.MuslimWorldLeague(),
+    },
+    {
+        label: "North America",
+        param: adhan.CalculationMethod.NorthAmerica(),
+    },
+    {
+        label: "Egypt",
+        param: adhan.CalculationMethod.Egyptian(),
+    },
+    {
+        label: "Karachi",
+        param: adhan.CalculationMethod.Karachi(),
+    },
+    {
+        label: "Moonsighting Committee",
+        param: adhan.CalculationMethod.MoonsightingCommittee(),
+    },
+    {
+        label: "Umm al-Qura",
+        param: adhan.CalculationMethod.UmmAlQura(),
+    },
+    {
+        label: "Dubai",
+        param: adhan.CalculationMethod.Dubai(),
+    },
+    {
+        label: "Qatar",
+        param: adhan.CalculationMethod.Qatar(),
+    },
+    {
+        label: "Kuwait",
+        param: adhan.CalculationMethod.Kuwait(),
+    },
+    {
+        label: "Singapore",
+        param: adhan.CalculationMethod.Singapore(),
+    },
+    {
+        label: "Turkey",
+        param: adhan.CalculationMethod.Turkey(),
+    },
+    {
+        label: "Tehran",
+        param: adhan.CalculationMethod.Tehran(),
+    },
+]
 
 function PrayerTimes() {
     const { location, refreshLocation } = useContext(LocationContext)
@@ -17,7 +72,24 @@ function PrayerTimes() {
     const [timeToNextP, setTimeToNextP] = useState("")
 
     const coords = new adhan.Coordinates(location.latitude, location.longitude)
-    const params = adhan.CalculationMethod.MoonsightingCommittee()
+
+    const getCalcMethod = (optionInput: string): CalculationParameters => {
+        for (const option of calcMethodOptions) {
+            if (optionInput === option.label) {
+                return option.param
+            }
+        }
+        throw new Error(
+            "Error calculating prayer times using this calculation method."
+        )
+    }
+
+    const calcMethod = getCalcMethod(userPrefs.prayerTimes.calcMethod)
+    const params = calcMethod
+    params!.madhab =
+        userPrefs.prayerTimes.madhab === "Shafi"
+            ? adhan.Madhab.Shafi
+            : adhan.Madhab.Hanafi
     const prayerTimes = new adhan.PrayerTimes(coords, date, params)
     const sunnahTimes = new adhan.SunnahTimes(prayerTimes)
 

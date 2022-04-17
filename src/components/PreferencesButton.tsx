@@ -11,12 +11,13 @@ import {
     useMantineColorScheme,
 } from "@mantine/core"
 import React, { useState } from "react"
-import { Adjustments, BrandInstagram, Mail } from "tabler-icons-react"
+import { Adjustments, BrandInstagram, Mail, Settings } from "tabler-icons-react"
 import {
     useChangeColourPref,
     useChangeHour12Pref,
     useUserPrefs,
 } from "../context/UserPrefContext"
+import PrayerTimesSettings from "./PrayerTimesSettings"
 
 const useStyles = createStyles((theme) => ({
     card: {
@@ -57,6 +58,7 @@ const useStyles = createStyles((theme) => ({
 function PreferencesButton() {
     const { classes } = useStyles()
     const [opened, setOpened] = useState(false)
+    const [settingsOpened, setSettingsOpened] = useState(false)
     const theme = useMantineTheme()
     const userPrefs = useUserPrefs()
     const changeColour = useChangeColourPref()
@@ -65,6 +67,10 @@ function PreferencesButton() {
 
     return (
         <>
+            <PrayerTimesSettings
+                open={settingsOpened}
+                setOpen={setSettingsOpened}
+            />
             <Popover
                 opened={opened}
                 onClose={() => setOpened(false)}
@@ -178,6 +184,36 @@ function PreferencesButton() {
                             ]}
                         />
                     </div>
+                </Group>
+                <Group
+                    position="apart"
+                    className={classes.item}
+                    noWrap
+                    spacing="xl"
+                >
+                    <div>
+                        <Text>Prayer times 🧮</Text>
+                        <Text size="xs" color="dimmed">
+                            Customise how your prayer times are calculated.
+                        </Text>
+                    </div>
+                    <Button
+                        size="xs"
+                        variant="outline"
+                        pl="xs"
+                        onClick={() => {
+                            setSettingsOpened(true)
+                            setOpened(false)
+                        }}
+                        leftIcon={
+                            <Settings
+                                style={{ strokeWidth: "1.25px" }}
+                                size={16}
+                            />
+                        }
+                    >
+                        Open settings
+                    </Button>
                 </Group>
                 <Group
                     position="apart"

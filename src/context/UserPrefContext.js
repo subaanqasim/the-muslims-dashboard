@@ -28,6 +28,10 @@ function UserPrefsContextProvider(props) {
             colour: "cyan",
             hour12: false,
             activeRemindersTab: 1,
+            prayerTimes: {
+                madhab: "Shafi",
+                calcMethod: "Moonsighting Committee",
+            },
         },
     })
 
@@ -57,9 +61,38 @@ function UserPrefsContextProvider(props) {
         }))
     }
 
+    // change prayerTimes madhab
+    const changeMadhab = (option) => {
+        setUserPrefs((prevPrefs) => ({
+            ...prevPrefs,
+            prayerTimes: {
+                ...prevPrefs.prayerTimes,
+                madhab: option,
+            },
+        }))
+    }
+
+    // change prayerTimes madhab
+    const changeCalcMethod = (option) => {
+        setUserPrefs((prevPrefs) => ({
+            ...prevPrefs,
+            prayerTimes: {
+                ...prevPrefs.prayerTimes,
+                calcMethod: option,
+            },
+        }))
+    }
+
     return (
         <UserPrefsContext.Provider
-            value={{ userPrefs, changeColour, changeHour12, changeRemTab }}
+            value={{
+                userPrefs,
+                changeColour,
+                changeHour12,
+                changeRemTab,
+                changeMadhab,
+                changeCalcMethod,
+            }}
         >
             {props.children}
         </UserPrefsContext.Provider>
@@ -117,10 +150,39 @@ const useChangeRemTabPref = () => {
         return context.changeRemTab
     }
 }
+
+// hook to change madhab pref
+const useChangeMadhabPref = () => {
+    const context = useContext(UserPrefsContext)
+
+    if (context === undefined || context === null) {
+        throw new Error(
+            "useChangeMadhabPref must be used inside UserPrefsContextProvider"
+        )
+    } else {
+        return context.changeMadhab
+    }
+}
+
+// hook to change calc method pref
+const useChangeCalcMethodPref = () => {
+    const context = useContext(UserPrefsContext)
+
+    if (context === undefined || context === null) {
+        throw new Error(
+            "useChangeCalcMethodPref must be used inside UserPrefsContextProvider"
+        )
+    } else {
+        return context.changeCalcMethod
+    }
+}
+
 export {
     UserPrefsContextProvider,
     useUserPrefs,
     useChangeColourPref,
     useChangeHour12Pref,
     useChangeRemTabPref,
+    useChangeMadhabPref,
+    useChangeCalcMethodPref,
 }
