@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState } from "react"
 import { ActionIcon, Mark, Paper, Table, Text, Title } from "@mantine/core"
 import { LocationContext } from "../context/LocationContext"
 import { Refresh } from "tabler-icons-react"
-import adhan, { CalculationParameters } from "adhan"
+import adhan, { CalculationParameters, Prayer } from "adhan"
 import dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
 import { useUserPrefs } from "../context/UserPrefContext"
+
 dayjs.extend(utc)
 
 const calcMethodOptions = [
@@ -163,39 +164,34 @@ function PrayerTimes() {
     ]
 
     useEffect(() => {
-        if (new Date().valueOf() - location.lastUpdated > 3600000) {
-            refreshLocation()
-        }
+        setCurrentPrayer(
+            prayerTimes
+                .currentPrayer()
+                .toString()
+                .replace(/(^\w|\s\w)/g, (m) => m.toUpperCase())
+        )
 
-        for (let i = 0; i < todayPrayerTimes.length; i++) {
-            if (new Date() < todayPrayerTimes[i].time) {
-                setCurrentPrayer(todayPrayerTimes[i - 1].prayer)
-                break
-            }
-        }
-    }, [])
+        setNextPrayer(
+            prayerTimes
+                .nextPrayer()
+                .toString()
+                .replace(/(^\w|\s\w)/g, (m) => m.toUpperCase())
+        )
 
-    useEffect(() => {
-        let nextPrayerTime = new Date()
-        for (let i = 0; i < todayPrayerTimes.length; i++) {
-            if (new Date() < todayPrayerTimes[i].time) {
-                nextPrayerTime = todayPrayerTimes[i].time
-                setNextPrayer(todayPrayerTimes[i].prayer)
-                break
-            }
-        }
-        updateRemainingTime(nextPrayerTime)
+        timeRemaining()
         setInterval(() => {
-            updateRemainingTime(nextPrayerTime)
+            timeRemaining()
         }, 1000)
     }, [])
 
-    function updateRemainingTime(timeOfNextPrayer: any) {
-        const timeRemaining = timeOfNextPrayer - new Date().valueOf()
-        const formattedTimeRemaining = dayjs
-            .utc(timeRemaining)
+    function timeRemaining() {
+        const remainingTime =
+            prayerTimes.timeForPrayer(prayerTimes.nextPrayer()).valueOf() -
+            new Date().valueOf()
+        const formattedRemainingTime = dayjs
+            .utc(remainingTime)
             .format("HH:mm:ss")
-        setTimeToNextP(formattedTimeRemaining)
+        setTimeToNextP(formattedRemainingTime)
     }
 
     const rows = todayPrayerTimes.map((prayer) => (
