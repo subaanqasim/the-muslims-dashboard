@@ -9,7 +9,9 @@ import {
     ColorPicker,
     Button,
     useMantineColorScheme,
+    Kbd,
 } from "@mantine/core"
+import { useOs } from "@mantine/hooks"
 import React, { useState } from "react"
 import { Adjustments, BrandInstagram, Mail, Settings } from "tabler-icons-react"
 import {
@@ -64,6 +66,7 @@ function PreferencesButton() {
     const changeColour = useChangeColourPref()
     const changeHour12 = useChangeHour12Pref()
     const { colorScheme, toggleColorScheme } = useMantineColorScheme()
+    const os = useOs()
 
     return (
         <>
@@ -138,14 +141,20 @@ function PreferencesButton() {
                             Soothe your eyes in the dark.
                         </Text>
                     </div>
-                    <Switch
-                        onLabel="ON"
-                        offLabel="OFF"
-                        checked={colorScheme === "dark"}
-                        onChange={() => toggleColorScheme()}
-                        className={classes.switch}
-                        size="lg"
-                    />
+                    <Group position="right">
+                        <div>
+                            <Kbd>{os === "macos" ? "⌘" : "Ctrl"}</Kbd> +{" "}
+                            <Kbd>J</Kbd>
+                        </div>
+                        <Switch
+                            onLabel="ON"
+                            offLabel="OFF"
+                            checked={colorScheme === "dark"}
+                            onChange={() => toggleColorScheme()}
+                            className={classes.switch}
+                            size="lg"
+                        />
+                    </Group>
                 </Group>
                 <Group
                     position="apart"
