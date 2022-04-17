@@ -104,9 +104,9 @@ function PreferencesButton() {
                     spacing="xl"
                 >
                     <div>
-                        <Text>12h time formatting</Text>
+                        <Text>12h time formatting 🕕</Text>
                         <Text size="xs" color="dimmed">
-                            Choose between 12h or 24h time formatting
+                            Choose between 12h or 24h time formatting.
                         </Text>
                     </div>
                     <Switch
@@ -127,9 +127,9 @@ function PreferencesButton() {
                     spacing="xl"
                 >
                     <div>
-                        <Text>Dark Mode</Text>
+                        <Text>Dark Mode 🌚</Text>
                         <Text size="xs" color="dimmed">
-                            Soothe your eyes in the dark 🌚
+                            Soothe your eyes in the dark.
                         </Text>
                     </div>
                     <Switch
@@ -148,7 +148,7 @@ function PreferencesButton() {
                     spacing="xl"
                 >
                     <div>
-                        <Text>Accent colour</Text>
+                        <Text>Accent colour 🎨</Text>
                         <Text size="xs" color="dimmed">
                             Pick whatever you want!
                         </Text>
