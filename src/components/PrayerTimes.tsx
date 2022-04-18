@@ -164,13 +164,17 @@ function PrayerTimes() {
     ]
 
     useEffect(() => {
-        if (new Date().valueOf() - location.lastUpdated > 3600000) {
+        if (new Date().valueOf() - location.lastUpdated > 900000) {
             refreshLocation()
         }
 
         for (let i = 0; i < todayPrayerTimes.length; i++) {
             if (new Date() < todayPrayerTimes[i].time) {
-                setCurrentPrayer(todayPrayerTimes[i - 1].prayer)
+                if (i === 0) {
+                    setCurrentPrayer("Isha")
+                    break
+                }
+                setCurrentPrayer(todayPrayerTimes[i].prayer)
                 break
             }
         }
@@ -179,7 +183,11 @@ function PrayerTimes() {
         for (let i = 0; i < todayPrayerTimes.length; i++) {
             if (new Date() < todayPrayerTimes[i].time) {
                 nextPrayerTime = todayPrayerTimes[i].time
-                setNextPrayer(todayPrayerTimes[i].prayer)
+                if (i === 0) {
+                    setNextPrayer(todayPrayerTimes[i].prayer)
+                    break
+                }
+                setNextPrayer(todayPrayerTimes[i - 1].prayer)
                 break
             }
         }

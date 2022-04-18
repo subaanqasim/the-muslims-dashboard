@@ -31,7 +31,7 @@ const useStyles = createStyles((theme) => ({
 
 function WeatherWidget() {
     const { classes } = useStyles()
-    const { location } = useContext(LocationContext)
+    const { location, refreshLocation } = useContext(LocationContext)
     const { weather, refreshWeather, isLoading } = useWeather()
     const userPrefs = useUserPrefs()
 
@@ -44,7 +44,10 @@ function WeatherWidget() {
             size="xs"
             radius="sm"
             variant="hover"
-            onClick={() => refreshWeather()}
+            onClick={() => {
+                refreshLocation()
+                refreshWeather()
+            }}
             title="Refresh weather"
         >
             <Refresh size={12} />
