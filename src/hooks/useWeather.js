@@ -4,6 +4,8 @@ import getCurrentWeather from "../helpers/getCurrentWeather"
 import getHourlyWeather from "../helpers/getHourlyWeather"
 import { showNotification } from "@mantine/notifications"
 import { CloudOff } from "tabler-icons-react"
+import { connectFunctionsEmulator, httpsCallable } from "firebase/functions"
+import { fbFunctions } from "../firebase-config"
 
 function useWeather() {
     const { location } = useContext(LocationContext)
@@ -21,29 +23,29 @@ function useWeather() {
     async function refreshWeather() {
         setIsLoading(true)
         setIsError(false)
+        // connectFunctionsEmulator(fbFunctions, "localhost", 5001)
+
+        const fetchWeather = httpsCallable(fbFunctions, "fetchWeather")
 
         try {
-            const res = await fetch(
-                `https://api.openweathermap.org/data/2.5/onecall?lat=${location.latitude}&lon=${location.longitude}&exclude=minutely,alerts&units=metric&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
-            )
+            const data = await fetchWeather({
+                lat: location.latitude,
+                lon: location.longitude,
+            })
 
-            if (res.status >= 400 && res.status < 600) {
-                throw new Error(res.status)
-            }
-            const data = await res.json()
-            gatherWeatherData(data)
-        } catch (errorCode) {
+            gatherWeatherData(data.data)
+        } catch (error) {
             setIsError(true)
             setIsLoading(false)
-            weatherError(errorCode)
+            weatherError(error)
         }
     }
 
-    const weatherError = (errorCode) => {
+    const weatherError = (error) => {
         setIsError(false)
         showNotification({
             autoClose: 8000,
-            title: `Unable to refresh weather 🌩 (${errorCode}).`,
+            title: `Unable to refresh weather 🌩 (${error}).`,
             message:
                 "Please try again later, or get in touch if this problem persists",
             color: "red",
