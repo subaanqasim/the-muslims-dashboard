@@ -174,7 +174,7 @@ function PrayerTimes() {
                     setCurrentPrayer("Isha")
                     break
                 }
-                setCurrentPrayer(todayPrayerTimes[i].prayer)
+                setCurrentPrayer(todayPrayerTimes[i - 1].prayer)
                 break
             }
         }
@@ -187,7 +187,7 @@ function PrayerTimes() {
                     setNextPrayer(todayPrayerTimes[i].prayer)
                     break
                 }
-                setNextPrayer(todayPrayerTimes[i - 1].prayer)
+                setNextPrayer(todayPrayerTimes[i].prayer)
                 break
             }
         }
