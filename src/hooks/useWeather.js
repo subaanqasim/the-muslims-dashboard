@@ -44,7 +44,7 @@ function useWeather() {
     const weatherError = (error) => {
         setIsError(false)
         showNotification({
-            autoClose: 8000,
+            autoClose: false,
             title: `Unable to refresh weather 🌩 (${error}).`,
             message:
                 "Please try again later, or get in touch if this problem persists",

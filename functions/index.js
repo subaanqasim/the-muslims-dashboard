@@ -11,7 +11,7 @@ export const fetchWeather = region("europe-west2").https.onCall(
         if (res.status >= 400 && res.status < 600) {
             throw new https.HttpsError(
                 "unavailable",
-                `Unable to fetch weather. ${res.status}`
+                `Unable to fetch weather. ${res.status})`
             )
         }
 
@@ -28,6 +28,19 @@ export const fetchHadith = region("europe-west2").https.onCall(async (data) => {
         limit: 300,
         book: data.randNum,
     })
+
+    if (res.status >= 400 && res.status < 600) {
+        throw new https.HttpsError(
+            "unknown",
+            `Unable to load a Hadith. ${res.status}`
+        )
+    }
+    if (res.total === 0) {
+        throw new https.HttpsError(
+            "unknown",
+            "Unable to load a Hadith (total = 0)"
+        )
+    }
 
     const index = Math.floor(Math.random() * res.hadiths.length)
 

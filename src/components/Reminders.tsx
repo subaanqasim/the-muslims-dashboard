@@ -7,12 +7,14 @@ import {
     Tabs,
     Blockquote,
     Spoiler,
+    Skeleton,
 } from "@mantine/core"
-import { Book, Folders } from "tabler-icons-react"
+import { Book, FaceIdError, Folders } from "tabler-icons-react"
 import parse from "html-react-parser"
 import { useChangeRemTabPref, useUserPrefs } from "../context/UserPrefContext"
 import { connectFunctionsEmulator, httpsCallable } from "firebase/functions"
 import { fbFunctions } from "../firebase-config"
+import { showNotification } from "@mantine/notifications"
 
 export function Reminders() {
     const userPrefs = useUserPrefs()
@@ -22,6 +24,7 @@ export function Reminders() {
         chapter: 0,
         verse: 0,
     })
+    const [hadithLoading, setHadithLoading] = useState(false)
 
     interface Hadith {
         title: string | undefined
@@ -62,21 +65,37 @@ export function Reminders() {
 
         const fetchRandHadith = async () => {
             // connectFunctionsEmulator(fbFunctions, "localhost", 5001)
-            const fetchHadith = httpsCallable(fbFunctions, "fetchHadith")
-
+            setHadithLoading(true)
             const rand97 = Math.floor(Math.random() * 97)
+            const fetchHadith = httpsCallable(fbFunctions, "fetchHadith")
+            try {
+                const res = (await fetchHadith({
+                    randNum: rand97,
+                })) as RandHadith
 
-            const res = (await fetchHadith({
-                randNum: rand97,
-            })) as RandHadith
+                setHadith({
+                    title: res.data.chapter_title,
+                    text: res.data.text,
+                    source: "Sahih al-Bukhari",
+                    book: rand97,
+                    chapter: res.data.chapter,
+                })
 
-            setHadith({
-                title: res.data.chapter_title,
-                text: res.data.text,
-                source: "Sahih al-Bukhari",
-                book: rand97,
-                chapter: res.data.chapter,
-            })
+                setHadithLoading(false)
+            } catch (error) {
+                setHadithLoading(false)
+
+                console.log(error)
+
+                showNotification({
+                    autoClose: false,
+                    title: `Unable to get a random Hadith 😥 (${error}).`,
+                    message:
+                        "Please try again later, or get in touch if this problem persists",
+                    color: "red",
+                    icon: <FaceIdError />,
+                })
+            }
         }
         fetchRandHadith()
     }, [])
@@ -115,21 +134,23 @@ export function Reminders() {
                 </Tabs.Tab>
 
                 <Tabs.Tab label="Hadith" icon={<Folders size={14} />}>
-                    <Text size="lg" weight={600} mb="sm">
-                        {hadith.title}
-                    </Text>
-                    <Blockquote
-                        cite={`– ${hadith.source}: book ${hadith.book}, chapter ${hadith.chapter}`}
-                        style={{ fontSize: "1rem", padding: "0" }}
-                    >
-                        <Spoiler
-                            showLabel="Show more"
-                            hideLabel="Hide"
-                            maxHeight={100}
+                    <Skeleton visible={hadithLoading}>
+                        <Text size="lg" weight={600} mb="sm">
+                            {hadith.title}
+                        </Text>
+                        <Blockquote
+                            cite={`– ${hadith.source}: book ${hadith.book}, chapter ${hadith.chapter}`}
+                            style={{ fontSize: "1rem", padding: "0" }}
                         >
-                            <Text>{parse(hadith.text!)}</Text>
-                        </Spoiler>
-                    </Blockquote>
+                            <Spoiler
+                                showLabel="Show more"
+                                hideLabel="Hide"
+                                maxHeight={100}
+                            >
+                                <Text>{parse(hadith.text!)}</Text>
+                            </Spoiler>
+                        </Blockquote>
+                    </Skeleton>
                     {/* <Group position="right" mt="xs">
                         <Button
                             variant="subtle"
