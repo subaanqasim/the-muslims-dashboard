@@ -10,10 +10,9 @@ import {
 } from "@mantine/core"
 import { Book, Folders } from "tabler-icons-react"
 import parse from "html-react-parser"
-import m3o from "m3o"
 import { useChangeRemTabPref, useUserPrefs } from "../context/UserPrefContext"
-const getHadith = m3o(process.env.REACT_APP_M3O_API_TOKEN).sunnah
-// const m3o = require("m30")(process.env.REACT_APP_M3O_API_TOKEN)
+import { connectFunctionsEmulator, httpsCallable } from "firebase/functions"
+import { fbFunctions } from "../firebase-config"
 
 export function Reminders() {
     const userPrefs = useUserPrefs()
@@ -31,6 +30,13 @@ export function Reminders() {
         book: number | undefined
         chapter: number | undefined
     }
+    interface RandHadith {
+        data: {
+            chapter_title: string | undefined
+            text: string | undefined
+            chapter: number | undefined
+        }
+    }
     const [hadith, setHadith] = useState<Hadith>({
         title: "",
         text: "",
@@ -40,17 +46,6 @@ export function Reminders() {
     })
 
     useEffect(() => {
-        // const fetchVerse = async () => {
-        //     const res = await fetch(
-        //         `https://api.quran.com/api/v4/verses/random?language=en&words=false&translations=131`
-        //     )
-        //     const data = await res.json()
-        //     setQuranVerse({
-        //         text: data.verse.translations[0].text,
-        //         verseKey: data.verse.verse_key,
-        //     })
-        // }
-
         const fetchVerse = async () => {
             const res = await fetch("../../../assets/quranEn.json")
             const data = await res.json()
@@ -65,25 +60,25 @@ export function Reminders() {
         }
         fetchVerse()
 
-        const fetchHadith = async () => {
+        const fetchRandHadith = async () => {
+            // connectFunctionsEmulator(fbFunctions, "localhost", 5001)
+            const fetchHadith = httpsCallable(fbFunctions, "fetchHadith")
+
             const rand97 = Math.floor(Math.random() * 97)
-            const res = await getHadith.hadiths({
-                collection: "bukhari",
-                limit: 300,
-                book: rand97,
-            })
-            const randHadith = Math.floor(Math.random() * res!.hadiths!.length)
+
+            const res = (await fetchHadith({
+                randNum: rand97,
+            })) as RandHadith
 
             setHadith({
-                title: res.hadiths![randHadith].chapter_title,
-                text: res.hadiths![randHadith].text,
+                title: res.data.chapter_title,
+                text: res.data.text,
                 source: "Sahih al-Bukhari",
                 book: rand97,
-                chapter: res.hadiths![randHadith].chapter,
+                chapter: res.data.chapter,
             })
         }
-
-        fetchHadith()
+        fetchRandHadith()
     }, [])
 
     return (
