@@ -35,7 +35,6 @@ Where you replace the text after the `=` with the keys you generated, respective
 The extension was made using Create React App which injects JavaScript into the HTML when the app is built. Due to security reasons, Chrome doesn't allow extensions to have JavaScript in HTML. This is easily navigated by adding one more line to your `.env` file:
 ```
 INLINE_RUNTIME_CHUNK=false
-
 ```
 Finally, you can use `npm start` to run the app on localhost and easily test out and make changes to the code in real-time.
 
@@ -44,5 +43,4 @@ If you want to use it as a proper extension, then use `npm run build` to create 
 In Chrome, head over to `chrome://extensions`, then ensure `developer mode` on the right is enabled.
 Then, click `load unpacked` in the top left, and select the `build` folder that was created.
 
-That's it! 😁
-Make changes and run tests to your heart's desire. Do let me know if you have any feedback, recommendations, or noticed any bugs. 
+That's it! 😁 - Make changes and run tests to your heart's desire. Do let me know if you have any feedback, recommendations, or noticed any bugs. 
