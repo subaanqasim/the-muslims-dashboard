@@ -1,6 +1,6 @@
 {
   "name": "The Muslim's Dashboard",
-  "description": "View everything you need as a Muslim whenever you open a new tab. From prayer times, to reminders from the Qur'an and Hadith, and more.",
+  "description": "View everything you need as a Muslim whenever you open a new tab.",
   "version": "1.0.0",
   "manifest_version": 3,
   "action": {
