@@ -1,18 +1,18 @@
 {
-    "name": "The Muslim's Dashboard",
-    "description": "The perfect new tab page for Muslims.",
-    "version": "0.0.1",
-    "manifest_version": 3,
-    "action": {
-        "default_title": "The Muslim's Dashboard",
-        "default_popup": "index.html"
-    },
-    "icons": {
-        "16": "tmd128.png",
-        "48": "tmd128.png",
-        "128": "tmd128.png"
-    },
-    "chrome_url_overrides": {
-        "newtab": "index.html"
-    }
+  "name": "The Muslim's Dashboard",
+  "description": "View everything you need as a Muslim whenever you open a new tab. From prayer times, to reminders from the Qur'an and Hadith, and more.",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "action": {
+    "default_title": "The Muslim's Dashboard",
+    "default_popup": "index.html"
+  },
+  "icons": {
+    "16": "tmd128.png",
+    "48": "tmd128.png",
+    "128": "tmd128.png"
+  },
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  }
 }
