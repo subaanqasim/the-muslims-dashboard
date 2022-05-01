@@ -8,6 +8,7 @@ I've always hated having to go to my phone and use 3-4 apps, or navigate 3-4 web
 Best of all, it's privacy-focused. No personal data is collected and all of your preferences are stored locally on your computer. All the code is here for you to snoop around with and make sure for yourself.
 
 Look out for it on the Chrome Web Store soon.
+Learn more: https://themuslimsdashboard.com/
 
 
 ## Testing and running locally
